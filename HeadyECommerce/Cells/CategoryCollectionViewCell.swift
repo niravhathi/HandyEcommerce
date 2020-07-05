@@ -11,4 +11,10 @@ import UIKit
 class CategoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var labelCategory: UILabel!
     @IBOutlet weak var imageViewCategory: UIImageView!
+    
+    func bind(category: Categories?) {
+        labelCategory.text = category?.name ?? ""
+        //if Imageneeds to show
+       // imageViewCategory.downloaded(from: "https://picsum.photos/200/300")
+    }
 }

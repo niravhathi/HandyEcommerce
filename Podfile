@@ -8,5 +8,5 @@ target 'HeadyECommerce' do
   # Pods for HeadyECommerce
   pod 'SwiftyJSON'
   pod 'RealmSwift'
-
+  pod 'ReachabilitySwift'
 end

@@ -15,14 +15,22 @@ class HomeViewController: UIViewController {
     var homeViewModel: HomeViewModel = HomeViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
+        categoryCollectionView.delegate = self
+        categoryCollectionView.dataSource = self
+        homeViewModel.fetchData { (success) in
+            if(success) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0)  {
+                     self.categoryCollectionView.reloadData()
+                }
+            } else {
+                
+            }
+        }
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        categoryCollectionView.delegate = self
-        categoryCollectionView.dataSource = self
-        categoryCollectionView.reloadData()
-        homeViewModel.fetchData()
+        
 //        if let filePath = Bundle.main.path(forResource: "data", ofType: "json"), let data = NSData(contentsOfFile: filePath) {
 //
 //            do {
@@ -68,21 +76,31 @@ class HomeViewController: UIViewController {
         
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowProductViewController" {
+            let productViewController = segue.destination as! ProductViewController
+            productViewController.categoryId = sender as? Int
+        }
+    }
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return homeViewModel.getCategoriesCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let iCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as! CategoryCollectionViewCell
+        iCell.bind(category: homeViewModel.dataRoot?.categories[indexPath.row])
         return iCell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = CGSize(width: UIScreen.main.bounds.width/2 - 10, height: 250)
-        return size
+        return  size
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "ShowProductViewController", sender: homeViewModel.dataRoot?.categories[indexPath.row].id ?? 0)
     }
     
 }

@@ -1,4 +1,5 @@
 PODS:
+  - ReachabilitySwift (5.0.0)
   - Realm (5.0.2):
     - Realm/Headers (= 5.0.2)
   - Realm/Headers (5.0.2)
@@ -7,20 +8,23 @@ PODS:
   - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
+  - ReachabilitySwift
   - RealmSwift
   - SwiftyJSON
 
 SPEC REPOS:
   trunk:
+    - ReachabilitySwift
     - Realm
     - RealmSwift
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Realm: 6b6f096671b64b04d08974177cabb2ff9343d153
   RealmSwift: a3db6be0488bf3e1d5314c2956cefe98a65cdd01
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 7dd21f8e030eb9f923164415d434b65f91a28907
+PODFILE CHECKSUM: dfd456ecff653f4910166494d401ef954675e34a
 
 COCOAPODS: 1.9.1

@@ -11,7 +11,8 @@ class DataRoot: Object {
     override class func primaryKey() -> String {
         return "id"
     }
-    static func with(json: JSON) -> DataRoot {
+    static func with(json: JSON, completion: @escaping (DataRoot) -> Void) {
+        print(json)
         let dataRoot = DataRoot()
         let blockOperation = BlockOperation {
             if json["id"].exists() {
@@ -36,7 +37,7 @@ class DataRoot: Object {
         operationQueue.addOperation(blockOperation)
         blockOperations2.addDependency(blockOperation)
         operationQueue.addOperation(blockOperations2)
-        return dataRoot
+        completion(dataRoot)
     }
 }
 
