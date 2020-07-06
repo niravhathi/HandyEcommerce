@@ -24,16 +24,19 @@ class HomeViewModel {
                     let blockOperation = BlockOperation {
                         DataRoot.with(json: data) { (dataRoot) in
                             self.dataRoot = dataRoot
-                            //print(dataRoot.categories[0].name)
-                        DatabaseManager.shared.storeData(self.dataRoot ?? DataRoot())
                         }
+                    }
+                    let blockOperation1 = BlockOperation {
+                            DatabaseManager.shared.storeData(self.dataRoot ?? DataRoot())
                     }
                     let blockOperations2 =  BlockOperation {
                         return completion(true)
                     }
                     self.operationQueue.maxConcurrentOperationCount = 1
                     self.operationQueue.addOperation(blockOperation)
-                    blockOperations2.addDependency(blockOperation)
+                    blockOperation1.addDependency(blockOperation)
+                    self.operationQueue.addOperation(blockOperation1)
+                    blockOperations2.addDependency(blockOperation1)
                     self.operationQueue.addOperation(blockOperations2)
                 case .Error(let message):
                     print(message)
@@ -41,16 +44,25 @@ class HomeViewModel {
                 }
             }
         } else {
-            self.dataRoot = DatabaseManager.shared.getAllData()
-//            if(self.dataRoot?.categories.count ?? 0 > 0) {
-//                 return completion(true)
-//            } else {
-//                 return completion(false)
-//            }
-            
+           
+            let blockOperation = BlockOperation {
+                DatabaseManager.shared.getAllData { (dataRoot) in
+                     self.dataRoot = dataRoot
+                }
+            }
+           
+            let blockOperation1 = BlockOperation {
+                if(self.dataRoot?.categories.count ?? 0 > 0) {
+                    return completion(true)
+                } else {
+                    return completion(false)
+                }
+            }
+            self.operationQueue.maxConcurrentOperationCount = 1
+            self.operationQueue.addOperation(blockOperation)
+            blockOperation1.addDependency(blockOperation)
+            self.operationQueue.addOperation(blockOperation1)
         }
-        
-
     }
     func getCategoriesCount() -> Int {
         return dataRoot?.categories.count ?? 0

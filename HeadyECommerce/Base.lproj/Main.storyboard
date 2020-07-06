@@ -49,7 +49,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="260" height="334"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="FkF-Ga-SLb">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="FkF-Ga-SLb">
                                                     <rect key="frame" x="0.0" y="0.0" width="260" height="274"/>
                                                     <color key="backgroundColor" red="0.90466934440000002" green="0.96764844660000005" blue="0.81684976819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </imageView>
