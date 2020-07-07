@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1198D07A6D752E601E8169EE /* Pods_HeadyECommerce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFC6B9E030BC482BACEDE77 /* Pods_HeadyECommerce.framework */; };
+		8988615124B31A1400564307 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 89F5CBC024AF7B070062818E /* data.json */; };
 		898D675224B073930048C32C /* ClientAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898D675124B073930048C32C /* ClientAPIManager.swift */; };
 		898D675424B077850048C32C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898D675324B077850048C32C /* HomeViewModel.swift */; };
 		898D675624B0A4210048C32C /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898D675524B0A4200048C32C /* ProductViewController.swift */; };
@@ -37,7 +38,6 @@
 		89F5CBBD24AF620B0062818E /* Child_categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F5CBB624AF620B0062818E /* Child_categories.swift */; };
 		89F5CBBE24AF620B0062818E /* Tax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F5CBB724AF620B0062818E /* Tax.swift */; };
 		89F5CBBF24AF620B0062818E /* DataRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F5CBB824AF620B0062818E /* DataRoot.swift */; };
-		89F5CBC124AF7B070062818E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 89F5CBC024AF7B070062818E /* data.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +107,46 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8988614D24B318A000564307 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				89A6DD5224AF24B600E86D30 /* HomeViewController.swift */,
+				898D675F24B0BA520048C32C /* ProductDetailsViewController.swift */,
+				898D675524B0A4200048C32C /* ProductViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		8988614E24B318B700564307 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				89A6DD4E24AF24B600E86D30 /* AppDelegate.swift */,
+				89A6DD5024AF24B600E86D30 /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		8988614F24B318F900564307 /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				89A6DD5424AF24B600E86D30 /* Main.storyboard */,
+				89A6DD5924AF24BD00E86D30 /* LaunchScreen.storyboard */,
+			);
+			path = UserInterface;
+			sourceTree = "<group>";
+		};
+		8988615024B3193B00564307 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				89A6DD5724AF24BD00E86D30 /* Assets.xcassets */,
+				898D676524B0E70F0048C32C /* sort.png */,
+				89A6DD6824AF429F00E86D30 /* placeholder.jpg */,
+				89A6DD5C24AF24BD00E86D30 /* Info.plist */,
+				89F5CBC024AF7B070062818E /* data.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		898D675024B073930048C32C /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,24 +178,16 @@
 		89A6DD4D24AF24B600E86D30 /* HeadyECommerce */ = {
 			isa = PBXGroup;
 			children = (
+				8988615024B3193B00564307 /* Resources */,
+				8988614F24B318F900564307 /* UserInterface */,
+				8988614E24B318B700564307 /* AppDelegate */,
+				8988614D24B318A000564307 /* ViewControllers */,
 				898D675024B073930048C32C /* Services */,
 				89F5CBB124AF59960062818E /* Model */,
 				89F5CBB024AF597C0062818E /* ViewModel */,
 				89A6DD6A24AF445800E86D30 /* Cells */,
 				89A6DD6524AF3C3B00E86D30 /* Extensions */,
 				89A6DD6224AF39AE00E86D30 /* Constants */,
-				89A6DD4E24AF24B600E86D30 /* AppDelegate.swift */,
-				89A6DD5024AF24B600E86D30 /* SceneDelegate.swift */,
-				89A6DD5224AF24B600E86D30 /* HomeViewController.swift */,
-				898D675F24B0BA520048C32C /* ProductDetailsViewController.swift */,
-				898D675524B0A4200048C32C /* ProductViewController.swift */,
-				89A6DD5424AF24B600E86D30 /* Main.storyboard */,
-				89A6DD5724AF24BD00E86D30 /* Assets.xcassets */,
-				898D676524B0E70F0048C32C /* sort.png */,
-				89A6DD6824AF429F00E86D30 /* placeholder.jpg */,
-				89A6DD5924AF24BD00E86D30 /* LaunchScreen.storyboard */,
-				89A6DD5C24AF24BD00E86D30 /* Info.plist */,
-				89F5CBC024AF7B070062818E /* data.json */,
 			);
 			path = HeadyECommerce;
 			sourceTree = "<group>";
@@ -272,9 +304,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				89A6DD5B24AF24BD00E86D30 /* LaunchScreen.storyboard in Resources */,
+				8988615124B31A1400564307 /* data.json in Resources */,
 				89A6DD6924AF429F00E86D30 /* placeholder.jpg in Resources */,
 				89A6DD5824AF24BD00E86D30 /* Assets.xcassets in Resources */,
-				89F5CBC124AF7B070062818E /* data.json in Resources */,
 				898D675A24B0A5E50048C32C /* ProductListCell.xib in Resources */,
 				89A6DD5624AF24B600E86D30 /* Main.storyboard in Resources */,
 				898D676624B0E7100048C32C /* sort.png in Resources */,
@@ -498,7 +530,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = HeadyECommerce/Info.plist;
+				INFOPLIST_FILE = HeadyECommerce/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -517,7 +549,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = HeadyECommerce/Info.plist;
+				INFOPLIST_FILE = HeadyECommerce/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import KRProgressHUD
 class HomeViewModel {
     var dataRoot: DataRoot?
     let operationQueue = OperationQueue()
@@ -17,51 +18,34 @@ class HomeViewModel {
     
     func fetchData(completion: @escaping (Bool) -> Void) {
         if NetworkManager.shared.isReachableNetwork() {
+            KRProgressHUD.show()
             let productAPIManager = ClientAPIManager()
             productAPIManager.getDataWith(for: endPoint) { (result) in
                 switch result{
                 case .Success(let data):
-                    let blockOperation = BlockOperation {
-                        DataRoot.with(json: data) { (dataRoot) in
-                            self.dataRoot = dataRoot
-                        }
+                    self.dataRoot = DataRoot.with(json: data)
+                    DatabaseManager.shared.storeData(self.dataRoot ?? DataRoot(), type: DataRoot.self)
+                    for rankObj in data["rankings"].arrayValue {
+                        _  =  Rankings.with(json: rankObj)
                     }
-                    let blockOperation1 = BlockOperation {
-                            DatabaseManager.shared.storeData(self.dataRoot ?? DataRoot())
-                    }
-                    let blockOperations2 =  BlockOperation {
-                        return completion(true)
-                    }
-                    self.operationQueue.maxConcurrentOperationCount = 1
-                    self.operationQueue.addOperation(blockOperation)
-                    blockOperation1.addDependency(blockOperation)
-                    self.operationQueue.addOperation(blockOperation1)
-                    blockOperations2.addDependency(blockOperation1)
-                    self.operationQueue.addOperation(blockOperations2)
+                    KRProgressHUD.dismiss()
+                    return completion(true)
                 case .Error(let message):
                     print(message)
-                   return completion(false)
-                }
-            }
-        } else {
-           
-            let blockOperation = BlockOperation {
-                DatabaseManager.shared.getAllData { (dataRoot) in
-                     self.dataRoot = dataRoot
-                }
-            }
-           
-            let blockOperation1 = BlockOperation {
-                if(self.dataRoot?.categories.count ?? 0 > 0) {
-                    return completion(true)
-                } else {
+                    KRProgressHUD.dismiss()
                     return completion(false)
                 }
             }
-            self.operationQueue.maxConcurrentOperationCount = 1
-            self.operationQueue.addOperation(blockOperation)
-            blockOperation1.addDependency(blockOperation)
-            self.operationQueue.addOperation(blockOperation1)
+        } else {
+            KRProgressHUD.show()
+            self.dataRoot = DatabaseManager.shared.getAllData()
+            if(self.dataRoot?.categories.count ?? 0 > 0) {
+                KRProgressHUD.dismiss()
+                return completion(true)
+            } else {
+                KRProgressHUD.dismiss()
+                return completion(false)
+            }
         }
     }
     func getCategoriesCount() -> Int {

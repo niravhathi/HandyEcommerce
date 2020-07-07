@@ -10,6 +10,7 @@ import UIKit
 
 class ProductViewController: UIViewController {
 
+    @IBOutlet weak var noDataAvailabel: UILabel!
     @IBOutlet weak var buttonShared: UIButton!
     @IBOutlet weak var buttonOrdered: UIButton!
     @IBOutlet var tableHeaderView: UIView!
@@ -17,6 +18,7 @@ class ProductViewController: UIViewController {
     var productViewModel = ProductViewModel()
     @IBOutlet weak var tableViewProducts: UITableView!
     var categoryId: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          tableViewProducts.register(UINib(nibName: "ProductListCell", bundle: nil), forCellReuseIdentifier: "ProductListCell")
@@ -30,6 +32,15 @@ class ProductViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if(productViewModel.getProductsCount() > 0) {
+            self.noDataAvailabel.isHidden = true
+            self.tableViewProducts.isHidden = false
+            self.tableViewProducts.reloadData()
+        } else {
+            self.tableViewProducts.isHidden = true
+            self.noDataAvailabel.isHidden = false
+        }
         self.tableViewProducts.reloadData()
     }
     
@@ -37,6 +48,7 @@ class ProductViewController: UIViewController {
     @IBAction func buttonSortedClicked(_ sender: UIButton) {
         self.productViewModel.getProductListSortedBy(sender.tag, id: self.categoryId ?? 0)
         self.tableViewProducts.reloadData()
+        
         
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

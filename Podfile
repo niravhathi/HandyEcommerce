@@ -9,4 +9,5 @@ target 'HeadyECommerce' do
   pod 'SwiftyJSON'
   pod 'RealmSwift'
   pod 'ReachabilitySwift'
+  pod "KRProgressHUD"
 end

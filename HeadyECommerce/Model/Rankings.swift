@@ -4,51 +4,47 @@ import RealmSwift
 
 class Rankings: Object {
     @objc dynamic var ranking = ""
-    var products = List<Products>()
-    @objc dynamic var id = 0
-    override class func primaryKey() -> String {
-        return "id"
-    }
-    static func with(json: JSON) -> List<Rankings> {
-        let rankings = List<Rankings>()
-        var counter:Int = 0;
-        for obj in json.arrayValue {
-            let ranking =  Rankings()
-            if obj["ranking"].exists() {
-                ranking.ranking = obj["ranking"].string ?? ""
-            }
-            if json["id"].exists() {
-                ranking.id = obj["id"].intValue
-            } else {
-                counter += 1
-                ranking.id = counter
-            }
-            if obj["products"].exists() {
-                if(ranking.ranking.contains("Viewed")) {
-                    let products = Products.withRankingViewCount(json: obj["products"])
-                    ranking.products = products
+    static func with(json: JSON) {
+        let rankings = Rankings()
+        if json["ranking"].exists() {
+            rankings.ranking = json["ranking"].string ?? ""
+        }
+        if(rankings.ranking == "Most Viewed Products") {
+            for obj in json["products"].arrayValue {
+                let realm = try! Realm()
+                let product =  realm.object(ofType: Products.self, forPrimaryKey: obj["id"].intValue)
+                try! realm.write {
+                    if obj["view_count"].exists() {
+                        product?.view_count = obj["view_count"].intValue
+                    }
                 }
-               
-            }
-            if obj["products"].exists() {
-                if(ranking.ranking.contains("OrdeRed")) {
-                    let products = Products.withRankingOrderCount(json: obj["products"])
-                    ranking.products = products
-                }
-               
-            }
-            if obj["products"].exists() {
-                if(ranking.ranking.contains("ShaRed")) {
-                    let products = Products.withRankingShares(json: obj["products"])
-                    ranking.products = products
-                }
-               
             }
             
-            rankings.append(ranking)
         }
-        
-        return rankings
+        if(rankings.ranking == "Most OrdeRed Products") {
+            for obj in json["products"].arrayValue {
+                let realm = try! Realm()
+                let product =  realm.object(ofType: Products.self, forPrimaryKey: obj["id"].intValue)
+                try! realm.write {
+                    if obj["order_count"].exists() {
+                        product?.order_count = obj["order_count"].intValue
+                    }
+                }
+            }
+            
+        }
+        if(rankings.ranking == "Most ShaRed Products") {
+            for obj in json["products"].arrayValue {
+                let realm = try! Realm()
+                let product =  realm.object(ofType: Products.self, forPrimaryKey: obj["id"].intValue)
+                try! realm.write {
+                    if obj["shares"].exists() {
+                        product?.shares = obj["shares"].intValue
+                    }
+                }
+            }
+            
+        }
     }
     
 }

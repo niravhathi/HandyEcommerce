@@ -27,7 +27,6 @@ class ClientAPIManager: NSObject {
                 else {
                     return completion(.Error(error?.localizedDescription ?? "There are no new Items to show"))
             }
-
             do {
                 if let json = try JSONSerialization.jsonObject(with: data, options: [.mutableContainers]) as? [String: AnyObject] {
                     completion(.Success(JSON(json)))

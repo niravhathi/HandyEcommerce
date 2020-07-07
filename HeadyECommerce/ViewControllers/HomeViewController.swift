@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import RealmSwift
 class HomeViewController: UIViewController {
-
+    @IBOutlet weak var noDataAvailabel: UILabel!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     var homeViewModel: HomeViewModel = HomeViewModel()
     override func viewDidLoad() {
@@ -20,62 +20,28 @@ class HomeViewController: UIViewController {
         homeViewModel.fetchData { (success) in
             if(success) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0)  {
-                     self.categoryCollectionView.reloadData()
+                    if(self.homeViewModel.getCategoriesCount() > 0) {
+                        self.noDataAvailabel.isHidden = true
+                        self.categoryCollectionView.isHidden = false
+                        self.categoryCollectionView.reloadData()
+                        
+                    } else {
+                        self.categoryCollectionView.isHidden = true
+                        self.noDataAvailabel.isHidden = false
+                    }
+                    
                 }
             } else {
-                
+                self.categoryCollectionView.isHidden = true
+                self.noDataAvailabel.isHidden = false
             }
         }
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-//        if let filePath = Bundle.main.path(forResource: "data", ofType: "json"), let data = NSData(contentsOfFile: filePath) {
-//
-//            do {
-//                let json = try JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.allowFragments)
-//              //  print(json)
-//                let dataRoot: DataRoot = DataRoot.with(json: JSON(json))
-//              //  print(dataRoot.categories[0].name)
-//
-//                 let realm = try! Realm()
-//
-//
-//                try! realm.write {
-//                    realm.create(DataRoot.self, value: dataRoot, update: .
-//                    all)
-//                    //realm.add(dataRoot)
-//                //     realm.create(Categories.self, value: dataRoot.categories, update: .modified)
-//                 //   realm.create(Rankings.self, value: dataRoot.rankings, update: .modified)
-//                 }
-//                 let results = realm.objects(Categories.self)
-//                 print(results[0].products[0].name)
-//                print(dataRoot.categories[0].products[0].name)
-//
-//
-////                do {
-////                  try realm.write {
-////
-////                    print(dataRoot.categories[0].name)
-////                    print(realm.configuration.fileURL)
-////
-////                    }
-////                } catch let error as NSError {
-////                    print("Erros \(error.localizedDescription)")
-////                }
-//
-//
-//
-//
-//            }
-//            catch {
-//                //Handle error
-//            }
-//        }
-        
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowProductViewController" {
             let productViewController = segue.destination as! ProductViewController

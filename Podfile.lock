@@ -1,4 +1,7 @@
 PODS:
+  - KRActivityIndicatorView (3.0.5)
+  - KRProgressHUD (3.4.5):
+    - KRActivityIndicatorView (= 3.0.5)
   - ReachabilitySwift (5.0.0)
   - Realm (5.0.2):
     - Realm/Headers (= 5.0.2)
@@ -8,23 +11,28 @@ PODS:
   - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
+  - KRProgressHUD
   - ReachabilitySwift
   - RealmSwift
   - SwiftyJSON
 
 SPEC REPOS:
   trunk:
+    - KRActivityIndicatorView
+    - KRProgressHUD
     - ReachabilitySwift
     - Realm
     - RealmSwift
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  KRActivityIndicatorView: 912bc0413d98340f384b12a4e1e6aa8f42fb377d
+  KRProgressHUD: df4cdc3a1baf708d4276a089ee34d133fa9a6f3e
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Realm: 6b6f096671b64b04d08974177cabb2ff9343d153
   RealmSwift: a3db6be0488bf3e1d5314c2956cefe98a65cdd01
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: dfd456ecff653f4910166494d401ef954675e34a
+PODFILE CHECKSUM: 859e0c85f9eceaf77aaeb5a93c424805a3e8cc0e
 
 COCOAPODS: 1.9.1

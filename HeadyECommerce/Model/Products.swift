@@ -11,6 +11,7 @@ class Products: Object {
     @objc dynamic var view_count = 0
     @objc dynamic var order_count = 0
     @objc dynamic var shares = 0
+
     
     override class func primaryKey() -> String {
         return "id"
@@ -37,15 +38,6 @@ class Products: Object {
                 let variants = Variants.with(json: obj["variants"])
                 product.variants = variants
             }
-            //            if obj["view_count"].exists() {
-            //                product.view_count = obj["view_count"].intValue
-            //            }
-            //            if obj["order_count"].exists() {
-            //                product.order_count = obj["order_count"].intValue
-            //            }
-            //            if obj["shares"].exists() {
-            //                product.shares = obj["shares"].intValue
-            //            }
             products.append(product)
         }
         

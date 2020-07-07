@@ -12,7 +12,9 @@ import RealmSwift
 class ProductViewModel {
     var productList: List<Products>?
     func getProductListBy(_ id: Int) {
+        self.productList = List<Products>()
         self.productList = DatabaseManager.shared.getProductByCategory(id)
+       // print(self.productList?[0].name)
     }
     func  getProductListSortedBy(_ tag: Int, id: Int = 0) {
         getProductListBy(id)
@@ -30,16 +32,5 @@ class ProductViewModel {
     }
     func getProductsCount() -> Int {
         return productList?.count ?? 0
-    }
-}
-extension Results {
-    func toArray<T>(ofType: T.Type) -> List<T> {
-        var array = List<T>()
-        for i in 0 ..< count {
-            if let result = self[i] as? T {
-                array.append(result)
-            }
-        }
-        return array
     }
 }
